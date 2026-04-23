@@ -1,5 +1,5 @@
 {% set name = "cylp" %}
-{% set version = "0.92.3" %}
+{% set version = "0.93.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/cylp-{{ version }}.tar.gz
-  sha256: 9c4f686964a577558b5c7f637d19657e6364826c22c5cc3fe1d7bebb61961bd6
+  sha256: 392e0809135d836edc045f1e41a758625f8bd7d36d78724bf408da8c0c507f96
 
 build:
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
