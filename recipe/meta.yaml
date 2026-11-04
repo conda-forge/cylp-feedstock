@@ -9,7 +9,16 @@ source:
   url: https://github.com/coin-or/CyLP/archive/refs/tags/v{{ version }}.tar.gz
   sha256: f0accddc7b7137d5b173feb0f39f33cef4ee19b2474f6d753a4c568301274399
 
+build:
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+  skip: true  # [win]
+
 requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
   host:
     - python
     - pip
