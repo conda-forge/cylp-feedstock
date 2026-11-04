@@ -10,12 +10,20 @@ source:
   sha256: f0accddc7b7137d5b173feb0f39f33cef4ee19b2474f6d753a4c568301274399
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
-  skip: true  # [win]
+  script:
+    - export COIN_INSTALL_DIR=$PREFIX  # [unix]
+    - set COIN_INSTALL_DIR=%LIBRARY_PREFIX%  # [win]
+    # The COIN-OR libraries are static on Windows, and CoinUtils calls LAPACK
+    - set "LINK=%LINK% %LIBRARY_LIB%\mkl_rt.lib"  # [win]
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 1
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython >=3.0.10,<3.4                   # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
@@ -30,6 +38,7 @@ requirements:
     - coin-or-clp
     - coin-or-osi
     - coin-or-utils
+    - mkl-devel  # [win]
   run:
     - python
     - numpy >=1.26.0
