@@ -1,5 +1,5 @@
 {% set name = "cylp" %}
-{% set version = "0.94.1" %}
+{% set version = "0.94.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/coin-or/CyLP/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: f0accddc7b7137d5b173feb0f39f33cef4ee19b2474f6d753a4c568301274399
+  sha256: cac8a6d5e4e646dcec01bf9e4c120eada38e34a5d46a3ebba9f9a308d2649804
 
 build:
   script:
@@ -16,7 +16,7 @@ build:
     # The COIN-OR libraries are static on Windows, and CoinUtils calls LAPACK
     - set "LINK=%LINK% %LIBRARY_LIB%\mkl_rt.lib"  # [win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   build:
